@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "name": "graphz",
+  "name": "gtmetrix",
+  "alias": "gtmetrix.now.sh",
   "builds": [{ "src": "src/**/*.ts", "use": "@now/node@canary" }],
   "routes": [{ "src": "/", "dest": "src/index.ts" }]
 }
