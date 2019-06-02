@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "name": "graphz",
+  "builds": [{ "src": "src/**/*.ts", "use": "@now/node@canary" }],
+  "routes": [{ "src": "/", "dest": "src/index.ts" }]
+}
