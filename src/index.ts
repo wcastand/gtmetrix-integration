@@ -54,6 +54,7 @@ module.exports = withUiHook(
         method: 'GET',
       })
       await reducer(action, clientState, store)
+      await zeitClient.setMetadata(store)
 
       if (!store.gtmetrixEmail || !store.gtmetrixApiKey) {
         return htm`
@@ -74,13 +75,12 @@ module.exports = withUiHook(
         </Page>
       `
       }
-
       const gtmetrix = require('gtmetrix')({
         email: store.gtmetrixEmail,
         apikey: store.gtmetrixApiKey,
       })
 
-      if (action === 'view') {
+      if (action === 'submit-gtmetrix' || action === 'view') {
         console.log('view')
         const { api_refill, api_credits } = await gtmetrix.account.status()
         store.gtmetrixRefill = api_refill
@@ -241,7 +241,12 @@ module.exports = withUiHook(
     } catch (e) {
       console.log('error')
       console.log(e)
-      return htm`<P>Error</P>`
+      return htm`
+      <Box>
+        <Notice type="error">${e.message}${e.error ? `: ${e.error}` : ''}</Notice>
+        <Button small action="reset-gtmetrix">Reset Details</Button>
+      </Box>
+      `
     }
   },
 )

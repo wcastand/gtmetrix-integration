@@ -14,6 +14,8 @@ export const reducer = async (action: string, clientState: any, store: Store) =>
       store.location = null
       store.browser = null
       store.testIds = []
+      store.browserList = []
+      store.locationList = []
       break
     case 'change-location':
       store.location = clientState.location
